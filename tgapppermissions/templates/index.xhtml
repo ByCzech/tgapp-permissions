@@ -1,17 +1,53 @@
 <html py:extends="master.xhtml" py:strip="True">
 <head py:block="head" py:strip="True">
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" py:if="False"/>
-    <title py:block="master_title">Welcome to TurboGears pluggable Application</title>
+    <title py:block="master_title">TGAppPermissions</title>
     <link rel="stylesheet" type="text/css" media="screen" href="${tg.url('/_pluggable/tgapppermissions/css/style.css')}" />
 </head>
 
 <body py:block="body" py:strip="True">
-    <div py:if="request.identity">Hi ${request.identity['user']}</div>
-    <div id="hello_box">
-        <img src="${tg.url('/_pluggable/tgapppermissions/images/star.png')}"/>
-        Hello from, ${h.tgapppermissions.bold(sample.name)}
-        owned by ${sample.user}
+    <div class="row">
+        <div class="col-md-2 col-xs-12 col-md-offset-10">
+            <a href="${tg.url(mount_point + '/new_permission')}" class="btn btn-success">Add Permission</a>
+        </div>
     </div>
-    <div>${h.call_partial('tgapppermissions.partials:something', name='Partial')}</div>
+    <div class="tgappcategories-list">
+
+
+            <div class="row" style="overflow-wrap: break-word; margin-bottom: 10px">
+                <table class="table table-striped">
+        <thead>
+          <tr>
+                          <th>Actions</th>
+
+            <th>Permission Name</th>
+            <th>Description</th>
+            <th>Groups</th>
+          </tr>
+        </thead>
+        <tbody>
+         <tr py:for="p in permissions">
+            <td><a href="${tg.url(mount_point + '/edit_permission/' + str(p._id))}"
+                       class="tgappcategories-edit btn btn-primary">
+                        <span class="glyphicon glyphicon-pencil"/>
+                    </a>
+                    <a href="${tg.url(mount_point + '/delete_permission/' + str(p._id))}"
+                       class="tgappcategories-delete btn btn-danger col col-md1"
+                       onclick="return confirm('Are you sure?')">
+                        <span class="glyphicon glyphicon-trash"/>
+                    </a></td>
+            <td>${p.permission_name}</td>
+            <td>${p.description}</td>
+            <td><span py:for="g in p.groups">
+                        ${g.display_name},
+                    </span></td>
+
+        </tr>
+
+        </tbody>
+            </table>
+            </div>
+        </div>
+
 </body>
 </html>

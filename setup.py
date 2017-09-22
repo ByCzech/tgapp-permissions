@@ -10,7 +10,21 @@ except ImportError:
 
 install_requires=[
     "TurboGears2 >= 2.3.9",
-    "tgext.pluggable"
+    "tgext.pluggable",
+    "axf",
+    "sprox",
+]
+
+testpkgs = [
+    'WebTest >= 1.2.3',
+    'nose',
+    'coverage',
+    'ming',
+    'sqlalchemy',
+    'zope.sqlalchemy',
+    'repoze.who',
+    'tw2.forms',
+    'kajiki',
 ]
 
 here = os.path.abspath(os.path.dirname(__file__))
@@ -43,5 +57,8 @@ setup(
     ]},
     entry_points="""
     """,
-    zip_safe=False
+    zip_safe=False,
+    extras_require={
+           'testing': testpkgs,
+    },
 )
