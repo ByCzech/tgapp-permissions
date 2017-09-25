@@ -1,4 +1,16 @@
-#hello_box {
-    font-style: italic;
-    color: red;
+.pager_link {
+    padding: 10px;
+    border: solid 1px #428bca;
+    background: #428bca;
+    color: #fff;
+    margin: 0;
+}
+.pager_curpage {
+    padding: 10px;
+    border: 1px solid #428bca;
+    color: #428bca;
+}
+
+.pagelist {
+    margin-bottom: 15px;
 }

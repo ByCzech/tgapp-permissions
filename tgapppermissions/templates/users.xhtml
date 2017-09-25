@@ -8,38 +8,53 @@
 <body py:block="body" py:strip="True">
     <div class="row">
         <div class="col-md-3 col-xs-12 col-md-offset-10">
-            <a href="${tg.url(mount_point + '/users')}" class="btn btn-primary">Users</a>
-            <a href="${tg.url(mount_point + '/new_permission')}" class="btn btn-success">Add Permission</a>
+            <a href="${tg.url(mount_point)}" class="btn btn-primary">Permissions</a>
         </div>
     </div>
     <div class="tgapppermissions-list">
         <div class="row" style="overflow-wrap: break-word; margin-bottom: 10px">
+            <p class="pagelist">
+              ${tmpl_context.paginators.users.pager()}
+            </p>
+            <form method="GET" action="${tg.url(mount_point + '/users')}" class="form-inline">
+                <select name="search_by" id="field" class="form-control">
+                    <option value="user_name">User Name</option>
+                    <option value="display_name">Display Name</option>
+                    <option value="email_address">Email</option>
+                </select>
+                <input name="search_value" class="form-control" style="width: auto"/>
+                <input type="submit" value="Search" class="btn btn-primary"/>
+            </form>
             <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>Actions</th>
-                        <th>Permission Name</th>
-                        <th>Description</th>
+                        <th>Display Name</th>
+                        <th>User Name</th>
+                        <th>Email</th>
+                        <th>Created</th>
                         <th>Groups</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr py:for="p in permissions">
+                    <tr py:for="u in users">
                         <td>
-                            <a href="${tg.url(mount_point + '/edit_permission/' + str(p._id))}"
+                            <a href="${tg.url(mount_point + '/edit_user/' + str(u._id))}"
                                class="tgappcategories-edit btn btn-primary">
                                 <span class="glyphicon glyphicon-pencil"/>
                             </a>
-                            <a href="${tg.url(mount_point + '/delete_permission/' + str(p._id))}"
+                            <!--<a href="${tg.url(mount_point + '/delete_user/' + str(u._id))}"
                                class="tgappcategories-delete btn btn-danger col col-md1"
                                onclick="return confirm('Are you sure?')">
                                 <span class="glyphicon glyphicon-trash"/>
-                            </a>
+                            </a>-->
                         </td>
-                        <td>${p.permission_name}</td>
-                        <td>${p.description}</td>
+                        <td>${u.display_name}</td>
+                        <td>${u.user_name}</td>
+                        <td>${u.email_address}</td>
+                        <td>${u.created}</td>
                         <td>
-                            <span py:for="g in p.groups">
+                            <span py:for="g in u.groups">
                                 ${g.display_name},
                             </span>
                         </td>
