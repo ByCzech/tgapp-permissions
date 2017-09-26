@@ -4,8 +4,6 @@ from tw2.forms.widgets import Form, TextField, TextArea, SubmitButton, MultipleS
 from tw2.core import Deferred
 from axf.bootstrap import BootstrapFormLayout
 from tgapppermissions.lib import helpers as h
-from tg.validation import TGValidationError
-
 
 
 class KajikiBootstrapFormLayout(BootstrapFormLayout):
@@ -21,7 +19,7 @@ class NewPermission(Form):
                                validator=UnicodeString(min=3))
 
         groups = MultipleSelectField(label=l_('Permission Groups'), css_class="form-control",
-                                     options=Deferred(lambda: h.query_groups()))
+                                     options=Deferred(h.query_groups))
 
     submit = SubmitButton(css_class='btn btn-primary pull-right', value=l_('Create'))
 
@@ -34,32 +32,20 @@ class EditUser(Form):
     class child(KajikiBootstrapFormLayout):
         display_name = TextField(label=l_('Display Name'),
                                  css_class='form-control',
-                                 validator=UnicodeString(min=3),
-                                 attrs=dict(disabled='disabled'),
-                                 )
+                                 validator=UnicodeString(min=3, not_empty=False),
+                                 attrs=dict(disabled='disabled'))
         user_name = TextField(label=l_('User Name'),
                               css_class='form-control',
-                              validator=UnicodeString(min=3),
-                              attrs=dict(disabled='disabled'),
-                              )
+                              validator=UnicodeString(min=3, not_empty=False),
+                              attrs=dict(disabled='disabled'))
         email_address = EmailField(label=l_('Email Address'),
                                    css_class='form-control',
-                                   attrs=dict(disabled='disabled'),
-                                   )
+                                   attrs=dict(disabled='disabled'))
         created = TextField(label=l_('Created'),
                             css_class='form-control',
-                            attrs=dict(disabled='disabled'),
-                            )
+                            attrs=dict(disabled='disabled'))
         groups = MultipleSelectField(label=l_('Groups'),
                                      css_class='form-control',
-                                     options=Deferred(lambda: h.query_groups()),
-                                     )
+                                     options=Deferred(h.query_groups))
 
     submit = SubmitButton(css_class='btn btn-primary pull-right', value=l_('Edit'))
-
-class EditUserValidator(object):
-    def to_python(self, value, state=None):
-        try:
-            return value if isinstance(value, list) else [value] if value is not None else None
-        except:
-            raise TGValidationError('EditUserValidatorException')

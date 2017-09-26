@@ -8,8 +8,8 @@
 <body py:block="body" py:strip="True">
     <div class="row">
         <div class="col-md-3 col-xs-12 col-md-offset-10">
-            <a href="${tg.url(mount_point + '/users')}" class="btn btn-primary">Users</a>
-            <a href="${tg.url(mount_point + '/new_permission')}" class="btn btn-success">Add Permission</a>
+            <a href="${tg.url([mount_point, '/users'])}" class="btn btn-primary">Users</a>
+            <a href="${tg.url([mount_point, '/new_permission'])}" class="btn btn-success">Add Permission</a>
         </div>
     </div>
     <div class="tgapppermissions-list">
