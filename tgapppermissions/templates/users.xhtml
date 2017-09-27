@@ -39,15 +39,11 @@
                 <tbody>
                     <tr py:for="u in users">
                         <td>
-                            <a href="${tg.url(mount_point + '/edit_user/' + str(u._id))}"
+                            <a href="${tg.url(mount_point + '/edit_user/' +
+                                str(getattr(u, h.tgapppermissions.get_primary_field('User'))))}"
                                class="tgappcategories-edit btn btn-primary">
                                 <span class="glyphicon glyphicon-pencil"/>
                             </a>
-                            <!--<a href="${tg.url(mount_point + '/delete_user/' + str(u._id))}"
-                               class="tgappcategories-delete btn btn-danger col col-md1"
-                               onclick="return confirm('Are you sure?')">
-                                <span class="glyphicon glyphicon-trash"/>
-                            </a>-->
                         </td>
                         <td>${u.display_name}</td>
                         <td>${u.user_name}</td>
