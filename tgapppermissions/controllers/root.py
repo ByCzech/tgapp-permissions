@@ -56,11 +56,11 @@ class RootController(TGController):
     @validate(get_edit_permission_form(), error_handler=edit_permission)
     def update_permission(self, permission_id, **kwargs):
         primary_field = model.provider.get_primary_field(app_model.Permission)
-        permission = model.provider.get_obj(app_model.Permission,
-                                            {primary_field: permission_id}) or abort(404)
-        permission.permission_name = kwargs.get('permission_name')
-        permission.description = kwargs.get('description')
-        permission._groups = kwargs.get('groups')
+        model.provider.update(app_model.Permission,
+                              {primary_field: permission_id,
+                               'permission_name': kwargs.get('permission_name'),
+                               'description': kwargs.get('description'),
+                               'groups': kwargs.get('groups')})
         flash(_('Permission updated.'))
         return redirect(url(self.mount_point))
 
