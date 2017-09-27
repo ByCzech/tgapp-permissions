@@ -78,7 +78,7 @@ def configure_app(using):
         from . import mingmodel
         app_cfg.package.model = mingmodel
         app_cfg.use_ming = True
-        app_cfg['ming.url'] = 'mim:///'
+        app_cfg['ming.url'] = 'mim:///fakedb'
         app_cfg.MingSession = app_cfg.package.model.DBSession
     else:
         raise ValueError('Unsupported backend')
@@ -86,12 +86,19 @@ def configure_app(using):
     app_cfg.model = app_cfg.package.model
     app_cfg.DBSession = app_cfg.package.model.DBSession
 
-    plug(app_cfg, 'tgapppermissions', plug_bootstrap=False)
+    plug(app_cfg, 'tgapppermissions', plug_bootstrap=True)
     return app_cfg
 
 
 def create_app(app_config, auth=False):
     app = app_config.make_wsgi_app(skip_authentication=True)
+
+    if auth:
+        app = TestApp(app, extra_environ=dict(REMOTE_USER='user'))
+    else:
+        app = TestApp(app)
+
+    app.get('/non_existing_url_force_app_config_update', status=404)
 
     if app_config.get('use_ming'):
         datastore = app_config.DBSession.bind
@@ -109,13 +116,6 @@ def create_app(app_config, auth=False):
     else:
         raise ValueError('Unsupported backend')
 
-
-    if auth:
-        app = TestApp(app, extra_environ=dict(REMOTE_USER='user'))
-    else:
-        app = TestApp(app)
-        
-    app.get('/non_existing_url_force_app_config_update', status=404)
     return app
 
 
