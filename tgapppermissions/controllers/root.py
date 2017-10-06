@@ -48,10 +48,12 @@ class RootController(TGController):
         primary_field = model.provider.get_primary_field(app_model.Permission)
         permission = model.provider.get_obj(app_model.Permission,
                                             {primary_field: permission_id}) or abort(404)
+        values = model.provider.dictify(permission)
+        values['groups'] = map(lambda x: str(x), permission['_groups'])
         return dict(form=get_edit_permission_form(),
                     mount_point=self.mount_point,
                     action=plug_url('tgapppermissions', '/update_permission/' + permission_id),
-                    values=permission)
+                    values=values)
 
     @expose()
     @validate(get_edit_permission_form(), error_handler=edit_permission)
@@ -68,7 +70,10 @@ class RootController(TGController):
     @expose()
     def delete_permission(self, permission_id):
         primary_field = model.provider.get_primary_field(app_model.Permission)
-        model.provider.delete(app_model.Permission, {primary_field: permission_id})
+        try:
+            model.provider.delete(app_model.Permission, {primary_field: permission_id})
+        except AttributeError:
+            abort(404)
         flash(_('Permission deleted'))
         return redirect(url(self.mount_point))
 
