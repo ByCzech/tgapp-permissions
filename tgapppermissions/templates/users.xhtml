@@ -40,7 +40,7 @@
                     <tr py:for="u in users">
                         <td>
                             <a href="${tg.url(mount_point + '/edit_user/' +
-                                str(getattr(u, h.tgapppermissions.get_primary_field('User'))))}"
+                                h.tgapppermissions.instance_primary_key(u, True))}"
                                class="tgappcategories-edit btn btn-primary">
                                 <span class="glyphicon glyphicon-pencil"/>
                             </a>

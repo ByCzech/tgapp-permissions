@@ -7,7 +7,7 @@ from tg.decorators import paginate
 from tg.i18n import ugettext as _
 
 from tgapppermissions import model
-from tgext.pluggable import app_model, plug_url, plug_redirect
+from tgext.pluggable import app_model, plug_url
 
 from tgapppermissions.lib import get_new_permission_form, get_edit_permission_form, get_edit_user_form
 from tgapppermissions.helpers import get_primary_field
@@ -45,7 +45,7 @@ class RootController(TGController):
 
     @expose('tgapppermissions.templates.edit_permission')
     def edit_permission(self, permission_id, **_):
-        primary_field = model.provider.get_primary_field(app_model.Permission)
+        primary_field = get_primary_field('Permission')
         permission = model.provider.get_obj(app_model.Permission,
                                             {primary_field: permission_id}) or abort(404)
         values = model.provider.dictify(permission)
@@ -58,7 +58,7 @@ class RootController(TGController):
     @expose()
     @validate(get_edit_permission_form(), error_handler=edit_permission)
     def update_permission(self, permission_id, **kwargs):
-        primary_field = model.provider.get_primary_field(app_model.Permission)
+        primary_field = get_primary_field('Permission')
         model.provider.update(app_model.Permission,
                               {primary_field: permission_id,
                                'permission_name': kwargs.get('permission_name'),
@@ -69,7 +69,7 @@ class RootController(TGController):
 
     @expose()
     def delete_permission(self, permission_id):
-        primary_field = model.provider.get_primary_field(app_model.Permission)
+        primary_field = get_primary_field('Permission')
         try:
             model.provider.delete(app_model.Permission, {primary_field: permission_id})
         except AttributeError:
@@ -90,7 +90,7 @@ class RootController(TGController):
 
     @expose('tgapppermissions.templates.edit_user')
     def edit_user(self, user_id, **_):
-        primary_field = get_primary_field(app_model.User)
+        primary_field = get_primary_field('User')
         user = model.provider.get(app_model.User, {primary_field: user_id}) or abort(404)
         return dict(
             form=get_edit_user_form(),
@@ -103,7 +103,7 @@ class RootController(TGController):
     @validate(get_edit_user_form(), error_handler=edit_user)
     def update_user(self, user_id, **kwargs):
         """currently updates ONLY the groups of the user"""
-        primary_field = get_primary_field(app_model.User)
+        primary_field = get_primary_field('User')
         model.provider.update(app_model.User,
                               {primary_field: user_id,
                                'groups': kwargs.get('groups')})

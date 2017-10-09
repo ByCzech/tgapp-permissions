@@ -26,11 +26,13 @@
                 <tbody>
                     <tr py:for="p in permissions">
                         <td>
-                            <a href="${tg.url(mount_point + '/edit_permission/' + str(p._id))}"
+                            <a href="${h.plug_url('tgapppermissions', '/edit_permission/' +
+                                     h.tgapppermissions.instance_primary_key(p, True))}"
                                class="tgappcategories-edit btn btn-primary">
                                 <span class="glyphicon glyphicon-pencil"/>
                             </a>
-                            <a href="${tg.url(mount_point + '/delete_permission/' + str(p._id))}"
+                            <a href="${h.plug_url('tgapppermissions', '/delete_permission/' +
+                                     h.tgapppermissions.instance_primary_key(p, True))}"
                                class="tgappcategories-delete btn btn-danger col col-md1"
                                onclick="return confirm('Are you sure?')">
                                 <span class="glyphicon glyphicon-trash"/>
