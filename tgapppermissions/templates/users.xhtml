@@ -17,12 +17,16 @@
               ${tmpl_context.paginators.users.pager()}
             </p>
             <form method="GET" action="${tg.url(mount_point + '/users')}" class="form-inline">
-                <select name="search_by" id="field" class="form-control">
-                    <option value="user_name">User Name</option>
-                    <option value="display_name">Display Name</option>
-                    <option value="email_address">Email</option>
+                <select name="search_by" id="search_by" class="form-control">
+                    <option id="user_name" value="user_name">User Name</option>
+                    <option id="display_name" value="display_name">Display Name</option>
+                    <option id="email_address" value="email_address">Email</option>
+                    <script>
+                      document.getElementById("search_by")
+                        .namedItem("${search_by}").selected = true;
+                    </script>
                 </select>
-                <input name="search_value" class="form-control" style="width: auto"/>
+                <input name="search_value" class="form-control" style="width: auto" value="${search_value}"/>
                 <input type="submit" value="Search" class="btn btn-primary"/>
             </form>
             <table class="table table-striped">

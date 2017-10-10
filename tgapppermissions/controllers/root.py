@@ -86,7 +86,9 @@ class RootController(TGController):
                               substring_filters=[search_by])
         _, users = model.provider.query(app_model.User, order_by='display_name', **query_args)
         return dict(mount_point=self.mount_point,
-                    users=users)
+                    users=users,
+                    search_by=search_by,
+                    search_value=search_value)
 
     @expose('tgapppermissions.templates.edit_user')
     def edit_user(self, user_id, **_):
