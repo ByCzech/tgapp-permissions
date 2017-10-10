@@ -14,16 +14,20 @@ from tgapppermissions.helpers import get_primary_field, instance_primary_key
 
 
 class RootController(TGController):
-    allow_only = predicates.has_permission('tgapppermissions')
-
     @expose('tgapppermissions.templates.index')
     def index(self):
-        count, permissions = model.provider.query(app_model.Permission)
-        return dict(permissions_count=count,
-                    permissions=permissions,
-                    mount_point=self.mount_point)
+        if predicates.has_permission('tgapppermissions-admin'):
+            count, permissions = model.provider.query(app_model.Permission)
+            return dict(permissions_count=count,
+                        permissions=permissions,
+                        mount_point=self.mount_point)
+        elif predicates.has_permission('tgapppermissions'):
+            return redirect(url(self.mount_point + '/users'))
+        else:
+            return redirect('/')
 
     @expose('tgapppermissions.templates.new_permission')
+    @require(predicates.has_permission('tgapppermissions-admin'))
     def new_permission(self, **_):
         return dict(form=get_new_permission_form(),
                     mount_point=self.mount_point,
@@ -31,6 +35,7 @@ class RootController(TGController):
                     values=None)
 
     @expose()
+    @require(predicates.has_permission('tgapppermissions-admin'))
     @validate(get_new_permission_form(), error_handler=new_permission)
     def create_permission(self, **kwargs):
         dictionary = {
@@ -44,6 +49,7 @@ class RootController(TGController):
         return redirect(url(self.mount_point))
 
     @expose('tgapppermissions.templates.edit_permission')
+    @require(predicates.has_permission('tgapppermissions-admin'))
     def edit_permission(self, permission_id, **_):
         primary_field = get_primary_field('Permission')
         permission = model.provider.get_obj(app_model.Permission,
@@ -56,6 +62,7 @@ class RootController(TGController):
                     values=values)
 
     @expose()
+    @require(predicates.has_permission('tgapppermissions-admin'))
     @validate(get_edit_permission_form(), error_handler=edit_permission)
     def update_permission(self, permission_id, **kwargs):
         primary_field = get_primary_field('Permission')
@@ -68,6 +75,7 @@ class RootController(TGController):
         return redirect(url(self.mount_point))
 
     @expose()
+    @require(predicates.has_permission('tgapppermissions-admin'))
     def delete_permission(self, permission_id):
         primary_field = get_primary_field('Permission')
         try:
@@ -78,6 +86,7 @@ class RootController(TGController):
         return redirect(url(self.mount_point))
 
     @expose('tgapppermissions.templates.users')
+    @require(predicates.has_permission('tgapppermissions'))
     @paginate('users', items_per_page=20)
     def users(self, search_by=None, search_value=None):
         query_args = {}
@@ -91,6 +100,7 @@ class RootController(TGController):
                     search_value=search_value)
 
     @expose()
+    @require(predicates.has_permission('tgapppermissions'))
     def toggle_group(self, **kwargs):
         from bson import ObjectId
         group_id = ObjectId(kwargs.get('group'))
