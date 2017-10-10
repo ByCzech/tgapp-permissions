@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col-md-3 col-xs-12 col-md-offset-10">
             <a href="${tg.url(mount_point)}" class="btn btn-primary"
-               py:if="h.predicates.has_permission('tgapppermissions-admin')">Permissions</a>
+               py:if="h.tgapppermissions.predicates.has_permission('tgapppermissions-admin')">Permissions</a>
         </div>
     </div>
     <div class="tgapppermissions-list">

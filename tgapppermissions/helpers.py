@@ -4,6 +4,7 @@
 
 from tgext.pluggable import plug_url
 from tgapppermissions.lib.helpers import query_groups
+from tg import predicates
 
 from tgapppermissions import model
 

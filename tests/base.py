@@ -49,7 +49,7 @@ class TestAuthMetadata(TGAuthMetadata):
 
     def get_permissions(self, identity, userid):
         if userid:
-            return ['tgapppermissions']
+            return ['tgapppermissions', 'tgapppermissions-admin']
         return []
 
 

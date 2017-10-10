@@ -53,7 +53,7 @@ class RootController(TGController):
         permission = model.provider.get_obj(app_model.Permission,
                                             {primary_field: permission_id}) or abort(404)
         values = model.provider.dictify(permission)
-        values['groups'] = map(lambda x: str(x), permission['_groups'])
+        values['groups'] = [instance_primary_key(g, True) for g in values['groups']]
         return dict(form=get_edit_permission_form(),
                     mount_point=self.mount_point,
                     action=plug_url('tgapppermissions', '/update_permission/' + permission_id),
@@ -100,12 +100,11 @@ class RootController(TGController):
     @expose()
     @require(predicates.has_permission('tgapppermissions'))
     def toggle_group(self, **kwargs):
-        from bson import ObjectId
-        group_id = ObjectId(kwargs.get('group'))
+        group_id = kwargs.get('group')
         user_id = kwargs.get('user')
         user = model.provider.get_obj(app_model.User,
                                       {get_primary_field('User'): user_id}) or abort(404)
-        groups_list = [g for g in user._groups]  # user._groups is an InstrumentedList
+        groups_list = [instance_primary_key(g, True) for g in user.groups]
         if group_id in groups_list:
             groups_list.remove(group_id)
             model.provider.update(app_model.User, {get_primary_field('User'): user_id,
