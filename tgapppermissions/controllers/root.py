@@ -10,7 +10,7 @@ from tgapppermissions import model
 from tgext.pluggable import app_model, plug_url
 
 from tgapppermissions.lib import get_new_permission_form, get_edit_permission_form, get_edit_user_form
-from tgapppermissions.helpers import get_primary_field
+from tgapppermissions.helpers import get_primary_field, instance_primary_key
 
 
 class RootController(TGController):
@@ -90,24 +90,20 @@ class RootController(TGController):
                     search_by=search_by,
                     search_value=search_value)
 
-    @expose('tgapppermissions.templates.edit_user')
-    def edit_user(self, user_id, **_):
-        primary_field = get_primary_field('User')
-        user = model.provider.get(app_model.User, {primary_field: user_id}) or abort(404)
-        return dict(
-            form=get_edit_user_form(),
-            mount_point=self.mount_point,
-            action=plug_url('tgapppermissions', '/update_user/' + user_id),
-            values=user,
-        )
-
     @expose()
-    @validate(get_edit_user_form(), error_handler=edit_user)
-    def update_user(self, user_id, **kwargs):
-        """currently updates ONLY the groups of the user"""
-        primary_field = get_primary_field('User')
-        model.provider.update(app_model.User,
-                              {primary_field: user_id,
-                               'groups': kwargs.get('groups')})
-        flash(_('User updated.'))
+    def toggle_group(self, **kwargs):
+        from bson import ObjectId
+        group_id = ObjectId(kwargs.get('group'))
+        user_id = kwargs.get('user')
+        user = model.provider.get_obj(app_model.User,
+                                      {get_primary_field('User'): user_id}) or abort(404)
+        groups_list = [g for g in user._groups]  # user._groups is an InstrumentedList
+        if group_id in groups_list:
+            groups_list.remove(group_id)
+            model.provider.update(app_model.User, {get_primary_field('User'): user_id,
+                                                   'groups': groups_list})
+        else:
+            groups_list.append(group_id)
+            model.provider.update(app_model.User, {get_primary_field('User'): user_id,
+                                                   'groups': groups_list})
         return redirect(url(self.mount_point + '/users'))

@@ -3,6 +3,8 @@
 """WebHelpers used in tgapp-permissions."""
 
 from tgext.pluggable import plug_url
+from tgapppermissions.lib.helpers import query_groups
+
 from tgapppermissions import model
 
 
