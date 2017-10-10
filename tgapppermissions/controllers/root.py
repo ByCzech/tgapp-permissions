@@ -21,10 +21,8 @@ class RootController(TGController):
             return dict(permissions_count=count,
                         permissions=permissions,
                         mount_point=self.mount_point)
-        elif predicates.has_permission('tgapppermissions'):
-            return redirect(url(self.mount_point + '/users'))
         else:
-            return redirect('/')
+            return redirect(url(self.mount_point + '/users'))
 
     @expose('tgapppermissions.templates.new_permission')
     @require(predicates.has_permission('tgapppermissions-admin'))
