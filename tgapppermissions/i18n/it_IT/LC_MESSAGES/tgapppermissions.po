@@ -1,0 +1,111 @@
+# Italian (Italy) translations for tgapp-permissions.
+# Copyright (C) 2017 ORGANIZATION
+# This file is distributed under the same license as the tgapp-permissions
+# project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: tgapp-permissions 0.2.0\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2017-10-12 16:51+0200\n"
+"PO-Revision-Date: 2017-10-12 16:16+0200\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: it_IT\n"
+"Language-Team: it_IT <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.5.1\n"
+
+#: tgapppermissions/controllers/root.py:46
+msgid "Permission created."
+msgstr "Permesso creato."
+
+#: tgapppermissions/controllers/root.py:72
+msgid "Permission updated."
+msgstr "Permesso aggiornato."
+
+#: tgapppermissions/controllers/root.py:83
+msgid "Permission deleted"
+msgstr "Permesso eliminato"
+
+#: tgapppermissions/lib/forms.py:15 tgapppermissions/templates/index.xhtml:21
+msgid "Name"
+msgstr "Nome"
+
+#: tgapppermissions/lib/forms.py:18 tgapppermissions/templates/index.xhtml:22
+msgid "Description"
+msgstr "Descrizione"
+
+#: tgapppermissions/lib/forms.py:21 tgapppermissions/templates/index.xhtml:23
+msgid "Groups"
+msgstr "Gruppi"
+
+#: tgapppermissions/lib/forms.py:24
+msgid "Create"
+msgstr "Crea"
+
+#: tgapppermissions/lib/forms.py:28
+msgid "Edit"
+msgstr "Modifica"
+
+#: tgapppermissions/templates/edit_permission.xhtml:4
+#: tgapppermissions/templates/new_permission.xhtml:4
+msgid "tgapppermissions"
+msgstr "tgapppermissions"
+
+#: tgapppermissions/templates/edit_permission.xhtml:11
+#: tgapppermissions/templates/new_permission.xhtml:11
+msgid "Back"
+msgstr "Indietro"
+
+#: tgapppermissions/templates/index.xhtml:4
+#: tgapppermissions/templates/users.xhtml:4
+msgid "TGAppPermissions"
+msgstr "TGAppPermissions"
+
+#: tgapppermissions/templates/index.xhtml:11
+msgid "Users"
+msgstr "Utenti"
+
+#: tgapppermissions/templates/index.xhtml:12
+msgid "Add Permission"
+msgstr "Aggiungi Permesso"
+
+#: tgapppermissions/templates/index.xhtml:20
+msgid "Actions"
+msgstr "Azioni"
+
+#: tgapppermissions/templates/index.xhtml:45
+msgid ","
+msgstr ","
+
+#: tgapppermissions/templates/users.xhtml:12
+msgid "Permissions"
+msgstr "Permessi"
+
+#: tgapppermissions/templates/users.xhtml:22
+#: tgapppermissions/templates/users.xhtml:37
+msgid "User Name"
+msgstr "Nome Utente"
+
+#: tgapppermissions/templates/users.xhtml:23
+#: tgapppermissions/templates/users.xhtml:36
+msgid "Display Name"
+msgstr "Display Name"
+
+#: tgapppermissions/templates/users.xhtml:24
+#: tgapppermissions/templates/users.xhtml:38
+msgid "Email"
+msgstr "Email"
+
+#: tgapppermissions/templates/users.xhtml:55
+msgid "remove"
+msgstr "rimuovi"
+
+#: tgapppermissions/templates/users.xhtml:58
+msgid "assign"
+msgstr "assegna"
+

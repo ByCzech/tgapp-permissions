@@ -12,13 +12,13 @@ class KajikiBootstrapFormLayout(BootstrapFormLayout):
 
 class NewPermission(Form):
     class child(KajikiBootstrapFormLayout):
-        permission_name = TextField(label=l_('Permission Name'), css_class='form-control',
+        permission_name = TextField(label=l_('Name'), css_class='form-control',
                          validator=UnicodeString(min=3))
 
-        description = TextArea(label=l_('Permission Description'), rows=10, css_class='form-control',
+        description = TextArea(label=l_('Description'), rows=10, css_class='form-control',
                                validator=UnicodeString(min=3))
 
-        groups = MultipleSelectField(label=l_('Permission Groups'), css_class="form-control",
+        groups = MultipleSelectField(label=l_('Groups'), css_class="form-control",
                                      options=Deferred(h.query_groups))
 
     submit = SubmitButton(css_class='btn btn-primary pull-right', value=l_('Create'))

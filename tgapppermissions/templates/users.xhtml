@@ -50,12 +50,12 @@
                           <form method="post" action="${h.plug_url('tgapppermissions', '/toggle_group')}">
                             <input type="hidden" name="group" value="${g[0]}"/>
                             <input type="hidden" name="user" value="${h.tgapppermissions.instance_primary_key(u)}"/>
-                            <input type="submit" class="btn btn-success"
+                            <button class="btn btn-success"
                                    py:if="g[0] in [h.tgapppermissions.instance_primary_key(gr) for gr in u.groups]"
-                                   onclick="return confirm('Are you sure?');" value="remove"/>
-                            <input type="submit" class="btn btn-default"
+                                   onclick="return confirm('Are you sure?');">remove</button>
+                            <button class="btn btn-default"
                                    py:if="g[0] not in [h.tgapppermissions.instance_primary_key(gr) for gr in u.groups]"
-                                   onclick="return confirm('Are you sure?');" value="assign"/>
+                                    onclick="return confirm('Are you sure?');">assign</button>
                           </form>
                         </td>
                     </tr>
