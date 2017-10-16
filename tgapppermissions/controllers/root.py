@@ -2,7 +2,7 @@
 """Main Controller"""
 
 from tg import TGController, abort
-from tg import expose, flash, require, url, lurl, request, redirect, validate, predicates
+from tg import expose, flash, require, url, lurl, request, redirect, validate, predicates, config
 from tg.decorators import paginate
 from tg.i18n import ugettext as _
 
@@ -105,12 +105,16 @@ class RootController(TGController):
         user = model.provider.get_obj(app_model.User,
                                       {get_primary_field('User'): user_id}) or abort(404)
         groups_list = [instance_primary_key(g, True) for g in user.groups]
+
         if group_id in groups_list:
             groups_list.remove(group_id)
             model.provider.update(app_model.User, {get_primary_field('User'): user_id,
                                                    'groups': groups_list})
         else:
-            groups_list.append(group_id)
+            if config['_pluggable_tgapppermissions_config']['exclusive_permissions']:
+                groups_list = [group_id]
+            else:
+                groups_list.append(group_id)
             model.provider.update(app_model.User, {get_primary_field('User'): user_id,
                                                    'groups': groups_list})
         return redirect(url(self.mount_point + '/users'))

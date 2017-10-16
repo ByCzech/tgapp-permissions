@@ -234,6 +234,55 @@ class RegistrationControllerTests(object):
                             status=302,
                             )
 
+        __, user = model.provider.query(app_model.User, filters=dict(user_name='alpha'))
+        user = user[0]
+        assert user.groups[0].group_name == 'editors', user.groups
+
+    def test_toggle_group_exlusive(self):
+        self.app_config['_pluggable_tgapppermissions_config']['exclusive_permissions'] = True
+        g_primary = get_primary_field('Group')
+        u_primary = get_primary_field('User')
+
+        u1 = model.provider.create(app_model.User,
+                                   {'user_name': 'alpha',
+                                    'display_name': 'Alpha',
+                                    'email_address': 'email@email.email',
+                                    'created': datetime.utcnow()})
+        u1_primary_value = getattr(u1, u_primary)
+        g1 = model.provider.create(app_model.Group,
+                                   {'group_name': 'editors', 'display_name': 'Editors'})
+        g1_primary_value = getattr(g1, g_primary)
+
+        g2 = model.provider.create(app_model.Group,
+                                   {'group_name': 'contributors', 'display_name': 'Contributors'})
+        g2_primary_value = getattr(g2, g_primary)
+
+        flush_db_changes()
+
+        resp = self.app.get('/tgapppermissions/toggle_group',
+                            {'user': u1_primary_value,
+                             'group': g1_primary_value},
+                            extra_environ={'REMOTE_USER': 'manager'},
+                            status=302,
+                            )
+
+        __, user = model.provider.query(app_model.User, filters=dict(user_name='alpha'))
+        user = user[0]
+        assert len(user.groups) == 1, user.groups
+        assert user.groups[0].group_name == 'editors', user.groups
+
+        resp = self.app.get('/tgapppermissions/toggle_group',
+                           {'user': u1_primary_value,
+                            'group': g2_primary_value},
+                           extra_environ={'REMOTE_USER': 'manager'},
+                           status=302,
+                           )
+
+        __, user = model.provider.query(app_model.User, filters=dict(user_name='alpha'))
+        user = user[0]
+        assert len(user.groups) == 1, user.groups
+        assert user.groups[0].group_name == 'contributors', user.groups
+
 class TestRegistrationControllerSQLA(RegistrationControllerTests):
     @classmethod
     def setupClass(cls):

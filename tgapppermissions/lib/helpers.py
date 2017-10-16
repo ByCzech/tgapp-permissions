@@ -1,8 +1,7 @@
 from tgapppermissions import model
-from tgext.pluggable import app_model
+from tgext.pluggable import app_model, instance_primary_key
 
 
 def query_groups():
     _, groups = model.provider.query(app_model.Group)
-    primary_field = model.provider.get_primary_field(app_model.Group)
-    return [(getattr(group, primary_field), group.display_name) for group in groups]
+    return [(instance_primary_key(group), group.display_name) for group in groups]
