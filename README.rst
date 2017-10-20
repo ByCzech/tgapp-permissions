@@ -1,3 +1,8 @@
+.. image:: https://travis-ci.org/axant/tgapp-permissions.svg?branch=master
+:target: https://travis-ci.org/axant/tgapp-permissions
+.. image:: https://coveralls.io/repos/github/axant/tgapp-permissions/badge.svg?branch=master
+:target: https://coveralls.io/github/axant/tgapp-permissions?branch=master
+
 About tgapp-permissions
 -------------------------
 
