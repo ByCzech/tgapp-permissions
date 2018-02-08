@@ -1,7 +1,6 @@
 <html py:extends="master.xhtml" py:strip="True">
 <head py:block="head" py:strip="True">
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" py:if="False"/>
-    <title py:block="master_title">TGAppPermissions</title>
     <link rel="stylesheet" type="text/css" media="screen" href="${tg.url('/_pluggable/tgapppermissions/css/style.css')}" />
 </head>
 
@@ -9,7 +8,9 @@
     <div class="row">
         <div class="col-md-3 col-xs-12 col-md-offset-10">
             <a href="${tg.url([mount_point, '/users'])}" class="btn btn-primary">Users</a>
-            <a href="${tg.url([mount_point, '/new_permission'])}" class="btn btn-success">Add Permission</a>
+            <a href="${tg.url([mount_point, '/new_permission'])}" class="btn btn-primary">
+              <span class="glyphicon glyphicon-plus" aria-hidden="true"/> Create
+            </a>
         </div>
     </div>
     <div class="tgapppermissions-list">
