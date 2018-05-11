@@ -7,11 +7,13 @@ About tgapp-permissions
 -------------------------
 
 tgapp-permissions is a Pluggable application for TurboGears2.
+tgapp-userprofile allows admins of your application to assign the users of your application to
+groups, and since groups are bound to permissions to assign permissions to your users
 
 Installing
 -------------------------------
 
-tgapp-permissions can be installed both from pypi or from bitbucket::
+tgapp-permissions can be installed both from pypi or from github::
 
     pip install tgapppermissions
 
@@ -31,23 +33,9 @@ Then at the *end of the file* call plug with tgapppermissions::
 You will be able to access the plugged application at
 *http://localhost:8080/tgapppermissions*.
 
-Available Hooks
-----------------------
+other special options that can be used with tgapppermissions are:
 
-tgapp-permissions makes available a some hooks which will be
-called during some actions to alter the default
-behavior of the appplications:
-
-Exposed Partials
-----------------------
-
-tgapp-permissions exposes a bunch of partials which can be used
-to render pieces of the blogging system anywhere in your
-application:
-
-Exposed Templates
---------------------
-
-The templates used by registration and that can be replaced with
-*tgext.pluggable.replace_template* are:
-
+- **exclusive_permissions** (default False): only a group can be assigned to a user
+- **query_groups**: function that is called by the template, must return a ``list of tuples`` where
+  each entry is composed of the `_id` of the group and it's `display_name`. you can customize this
+  function to filter or and sort groups if you don't want to show every group in your database
