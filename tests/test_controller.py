@@ -11,7 +11,7 @@ from tgapppermissions.helpers import get_primary_field
 find_urls = re.compile('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+')
 
 
-class RegistrationControllerTests(object):
+class PermissionsControllerTests(object):
     def setup(self):
         self.app = create_app(self.app_config, False)
 
@@ -231,15 +231,41 @@ class RegistrationControllerTests(object):
                             {'user': u1_primary_value,
                              'group': g1_primary_value},
                             extra_environ={'REMOTE_USER': 'manager'},
-                            status=302,
-                            )
+                            status=302)
 
         __, user = model.provider.query(app_model.User, filters=dict(user_name='alpha'))
         user = user[0]
         assert user.groups[0].group_name == 'editors', user.groups
 
-    def test_toggle_group_exlusive(self):
+        resp = self.app.get('/tgapppermissions/toggle_group',
+                            {'user': u1_primary_value,
+                             'group': g1_primary_value},
+                            extra_environ={'REMOTE_USER': 'manager'},
+                            status=302)
+
+        __, user = model.provider.query(app_model.User, filters=dict(user_name='alpha'))
+        user = user[0]
+        assert user.groups == [], user.groups
+
+
+class TestPermissionsControllerSQLA(PermissionsControllerTests):
+    @classmethod
+    def setupClass(cls):
+        cls.app_config = configure_app('sqlalchemy')
+
+
+class TestPermissionsControllerMing(PermissionsControllerTests):
+    @classmethod
+    def setupClass(cls):
+        cls.app_config = configure_app('ming')
+
+
+class ExclusivePermissionsTests(object):
+    def setup(self):
         self.app_config['_pluggable_tgapppermissions_config']['exclusive_permissions'] = True
+        self.app = create_app(self.app_config, False)
+
+    def test_toggle_group_exlusive(self):
         g_primary = get_primary_field('Group')
         u_primary = get_primary_field('User')
 
@@ -283,13 +309,16 @@ class RegistrationControllerTests(object):
         assert len(user.groups) == 1, user.groups
         assert user.groups[0].group_name == 'contributors', user.groups
 
-class TestRegistrationControllerSQLA(RegistrationControllerTests):
+
+
+class TestExclusivePermissionsSQLA(ExclusivePermissionsTests):
     @classmethod
     def setupClass(cls):
         cls.app_config = configure_app('sqlalchemy')
 
 
-class TestRegistrationControllerMing(RegistrationControllerTests):
+class TestExclusivePermissionsMing(ExclusivePermissionsTests):
     @classmethod
     def setupClass(cls):
         cls.app_config = configure_app('ming')
+

@@ -53,7 +53,7 @@ class RootController(TGController):
         permission = model.provider.get_obj(app_model.Permission,
                                             {primary_field: permission_id}) or abort(404)
         values = model.provider.dictify(permission)
-        values['groups'] = [instance_primary_key(g, True) for g in values['groups']]
+        values['groups'] = [instance_primary_key(g, True) for g in permission.groups]
         return dict(form=get_edit_permission_form(),
                     mount_point=self.mount_point,
                     action=plug_url('tgapppermissions', '/update_permission/' + permission_id),

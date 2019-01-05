@@ -73,6 +73,7 @@ def configure_app(using):
         app_cfg.use_sqlalchemy = True
         app_cfg['sqlalchemy.url'] = 'sqlite://'
         app_cfg.use_transaction_manager = True
+        app_cfg['tm.enabled'] = True
         app_cfg.SQLASession = app_cfg.package.model.DBSession
     elif using == 'ming':
         from . import mingmodel

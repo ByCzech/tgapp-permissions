@@ -9,5 +9,11 @@ def plugme(app_config, options):
     milestones.config_ready.register(model.configure_models)
     if 'exclusive_permissions' not in options:
         options['exclusive_permissions'] = False
-    app_config['_pluggable_tgapppermissions_config'] = options
+
+    try:
+        app_config.update_blueprint({
+            '_pluggable_tgapppermissions_config': options
+        })
+    except AttributeError:        
+        app_config['_pluggable_tgapppermissions_config'] = options
     return dict(appid='tgapppermissions', global_helpers=False)

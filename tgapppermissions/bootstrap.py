@@ -12,6 +12,16 @@ def bootstrap(command, conf, vars):
                               description='Permits to manage permissions')
     p2 = app_model.Permission(permission_name='tgapppermissions',
                               description='Permits to assign groups to a user')
+
+    try:  # sqlalchemy
+        g = model.DBSession.query(app_model.Group).filter_by(group_name='managers').first()
+    except:  # ming
+        g = app_model.Group.query.find(dict(group_name='managers')).first()
+    
+    if g:
+        p1.groups = [g]
+        p2.groups = [g]
+
     try:
         model.DBSession.add(p1)
         model.DBSession.add(p2)
