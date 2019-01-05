@@ -35,7 +35,7 @@ except IOError:
 
 setup(
     name='tgapp-permissions',
-    version='0.3.2',
+    version='0.4.0',
     description='Permission management for web application in turbogears2',
     long_description=README,
     author='Axant, Vincenzo Castiglia',
