@@ -35,11 +35,11 @@ except IOError:
 
 setup(
     name='tgapp-permissions',
-    version='0.4.0',
+    version='0.4.1',
     description='Permission management for web application in turbogears2',
     long_description=README,
-    author='Axant, Vincenzo Castiglia',
-    author_email='vincenzo.castiglia@axant.it',
+    author='Jaroslav Mikulík',
+    author_email='byczech@gmail.com',
     url='https://github.com/axant/tgapp-permissions',
     keywords='turbogears2.application',
     packages=find_packages(exclude=['ez_setup']),
