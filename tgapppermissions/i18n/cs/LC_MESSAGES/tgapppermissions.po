@@ -1,0 +1,99 @@
+# Czech translations for tgapp-permissions.
+# Copyright (C) 2024 ORGANIZATION
+# This file is distributed under the same license as the tgapp-permissions
+# project.
+#
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
+# Jaroslav Mikulík <jaroslav.mikulik@runtech.cz>, 2024.
+msgid ""
+msgstr ""
+"Project-Id-Version: tgapp-permissions 0.4.1\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2024-08-22 20:45+0200\n"
+"PO-Revision-Date: 2024-08-22 20:50+0200\n"
+"Last-Translator: Jaroslav Mikulík <jaroslav.mikulik@runtech.cz>\n"
+"Language: cs\n"
+"Language-Team: Czech <kde-i18n-doc@kde.org>\n"
+"Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.10.3\n"
+"X-Generator: Lokalize 22.12.3\n"
+
+#: tgapppermissions/controllers/root.py:46
+msgid "Permission created."
+msgstr "Povolení vytvořeno."
+
+#: tgapppermissions/controllers/root.py:72
+msgid "Permission updated."
+msgstr "Povolení aktualizováno."
+
+#: tgapppermissions/controllers/root.py:83
+msgid "Permission deleted"
+msgstr "Povolení smazáno"
+
+#: tgapppermissions/lib/forms.py:15 tgapppermissions/templates/index.xhtml:22
+msgid "Name"
+msgstr "Jméno"
+
+#: tgapppermissions/lib/forms.py:18 tgapppermissions/templates/index.xhtml:23
+msgid "Description"
+msgstr "Popis"
+
+#: tgapppermissions/lib/forms.py:21 tgapppermissions/templates/index.xhtml:24
+msgid "Groups"
+msgstr "Skupiny"
+
+#: tgapppermissions/lib/forms.py:24 tgapppermissions/templates/index.xhtml:12
+msgid "Create"
+msgstr "Vytvořit"
+
+#: tgapppermissions/lib/forms.py:28
+msgid "Edit"
+msgstr "Upravit"
+
+#: tgapppermissions/templates/edit_permission.xhtml:10
+#: tgapppermissions/templates/new_permission.xhtml:10
+msgid "Back"
+msgstr "Zpět"
+
+#: tgapppermissions/templates/index.xhtml:10
+msgid "Users"
+msgstr "Uživatelé"
+
+#: tgapppermissions/templates/index.xhtml:21
+msgid "Actions"
+msgstr "Akce"
+
+#: tgapppermissions/templates/index.xhtml:46
+msgid ","
+msgstr ","
+
+#: tgapppermissions/templates/users.xhtml:11
+msgid "Permissions"
+msgstr "Povolení"
+
+#: tgapppermissions/templates/users.xhtml:21
+#: tgapppermissions/templates/users.xhtml:36
+msgid "User Name"
+msgstr "Uživatelské jméno"
+
+#: tgapppermissions/templates/users.xhtml:22
+#: tgapppermissions/templates/users.xhtml:35
+msgid "Display Name"
+msgstr "Zobrazované jméno"
+
+#: tgapppermissions/templates/users.xhtml:23
+#: tgapppermissions/templates/users.xhtml:37
+msgid "Email"
+msgstr "Email"
+
+#: tgapppermissions/templates/users.xhtml:54
+msgid "remove"
+msgstr "odebrat"
+
+#: tgapppermissions/templates/users.xhtml:57
+msgid "assign"
+msgstr "přiřadit"
+
