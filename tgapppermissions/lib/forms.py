@@ -1,4 +1,4 @@
-from formencode.validators import UnicodeString
+from formencode.validators import ByteString
 from tg.i18n import lazy_ugettext as l_
 from tw2.forms.widgets import Form, TextField, TextArea, SubmitButton, MultipleSelectField
 from tw2.core import Deferred
@@ -13,10 +13,10 @@ class KajikiBootstrapFormLayout(BootstrapFormLayout):
 class NewPermission(Form):
     class child(KajikiBootstrapFormLayout):
         permission_name = TextField(label=l_('Name'), css_class='form-control',
-                                    validator=UnicodeString(not_empty=True))
+                                    validator=ByteString(not_empty=True))
 
         description = TextArea(label=l_('Description'), rows=10, css_class='form-control',
-                               validator=UnicodeString(not_empty=True))
+                               validator=ByteString(not_empty=True))
 
         groups = MultipleSelectField(label=l_('Groups'), css_class="form-control",
                                      options=Deferred(h.query_groups))
