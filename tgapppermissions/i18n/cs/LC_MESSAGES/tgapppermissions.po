@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: tgapp-permissions 0.4.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2024-08-22 20:45+0200\n"
-"PO-Revision-Date: 2024-08-22 20:50+0200\n"
+"PO-Revision-Date: 2024-08-22 20:54+0200\n"
 "Last-Translator: Jaroslav Mikulík <jaroslav.mikulik@runtech.cz>\n"
 "Language: cs\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -35,7 +35,7 @@ msgstr "Povolení smazáno"
 
 #: tgapppermissions/lib/forms.py:15 tgapppermissions/templates/index.xhtml:22
 msgid "Name"
-msgstr "Jméno"
+msgstr "Název"
 
 #: tgapppermissions/lib/forms.py:18 tgapppermissions/templates/index.xhtml:23
 msgid "Description"
